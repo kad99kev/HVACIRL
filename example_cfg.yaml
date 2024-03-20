@@ -1,0 +1,73 @@
+run_name: "example"
+torch_deterministic: True # if toggled, `torch.backends.cudnn.deterministic=False`
+cuda: False # if toggled, cuda will be enabled by default
+algorithm: "ppo"
+reward: "exponential"
+experiment: "example"
+imitation:
+  env_name: 5zone-hot-continuous
+  data_path: /path/to/data.csv
+  max_samples: 50_000 # Total samples to train imitation model.
+  batch_size: 32
+  ent_weight: 0.001
+eval:
+  name: Eplus-5zone-hot-continuous-stochastic-v1
+  total_timesteps: 35_040 # 1 episode
+  log_interval: 1000
+test:
+  name: Eplus-5zone-hot-continuous-stochastic-v1
+  total_timesteps: 175200 # 5 episodes
+  log_interval: 1000
+reinforce:
+  reset_layer: True
+  name: [Eplus-5zone-hot-continuous-stochastic-v1]
+  total_timesteps: 1_000_000 # total timesteps of the experiment
+  # total_timesteps: 100_000 # total timesteps of the experiment
+wandb:
+  project: example
+  entity: example
+  api_key: example
+agent:
+  checkpoint_freq: 100 # After how many total_timesteps to save
+  ############### SCRATCH PARAMS ###############
+  scratch:
+    learning_rate: 3.0e-4 # the learning rate of the optimizer
+    num_steps: 2048 # the number of steps to run in each environment per policy rollout
+    anneal_lr: False # Toggle learning rate annealing for policy and value networks
+    gamma: 0.99 # the discount factor gamma
+    gae_lambda: 0.95 # the lambda for the general advantage estimation
+    num_minibatches: 32 # the number of mini-batches
+    update_epochs: 10 # the K epochs to update the policy
+    norm_adv: True # Toggles advantages normalization
+    clip_coef: 0.2 # the surrogate clipping coefficient
+    clip_vloss: True # Toggles whether or not to use a clipped loss for the value function, as per the paper
+    ent_coef: 0.0 # coefficient of the entropy
+    vf_coef: 0.5 # coefficient of the value function
+    max_grad_norm: 0.5 # the maximum norm for the gradient clipping
+    target_kl: null # the target KL divergence threshold
+  ############### FINETUNE PARAMS ###############
+  finetune:
+    learning_rate: 3.0e-4 # the learning rate of the optimizer (ignored if critic learning set to True)
+    num_steps: 2048 # the number of steps to run in each environment per policy rollout
+    anneal_lr: True # Toggle learning rate annealing for policy and value networks (ignored if critic learning set to True)
+    gamma: 0.99 # the discount factor gamma
+    gae_lambda: 0.95 # the lambda for the general advantage estimation
+    num_minibatches: 32 # the number of mini-batches
+    update_epochs: 10 # the K epochs to update the policy
+    norm_adv: True # Toggles advantages normalization
+    clip_coef: 0.2 # the surrogate clipping coefficient
+    clip_vloss: True # Toggles whether or not to use a clipped loss for the value function, as per the paper
+    ent_coef: 0.0 # coefficient of the entropy
+    vf_coef: 0.5 # coefficient of the value function
+    max_grad_norm: 0.5 # the maximum norm for the gradient clipping
+    target_kl: null # the target KL divergence threshold
+    ############### CRITIC LEARNING PARAMS ###############
+    critic_learning: True # whether to train critic first
+    start_critic_lr: 1.0e-3
+    end_critic_lr: 1.5e-5
+    start_actor_lr: 0
+    end_actor_lr: 1.5e-5
+    critic_start: 350_000 # the critic learning phase start (only applicable if train_critic is True)
+    critic_end: 650_000 # the critic learning phase end (only applicable if train_critic is True)
+    actor_start: 0 # the actor learning phase start (only applicable if train_critic is True)
+    actor_end: 700_000 # the actor learning phase end (only applicable if train_critic is True)
