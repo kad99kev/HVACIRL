@@ -29,3 +29,5 @@ hvacirl scratch -c path/to/config -s 0
 ```
 
 Run `hvacirl --help` for more information.
+
+Example configuration file is given in `example_cfg.yaml`.
