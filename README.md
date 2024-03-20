@@ -31,3 +31,7 @@ hvacirl scratch -c path/to/config -s 0
 Run `hvacirl --help` for more information.
 
 Example configuration file is given in `example_cfg.yaml`.
+
+## Dataset generation.
+
+To generate the dataset used for pre-training, run the `data_collector.ipynb` Jupyter Notebook. This will generate `.csv` files that can then be used for pre-training.
