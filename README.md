@@ -1,5 +1,7 @@
 # Enhancing HVAC Control Efficiency: A Hybrid Approach Using Imitation and Reinforcement Learning
 
+Link to Research - https://link.springer.com/chapter/10.1007/978-3-031-70378-2_16
+
 ## Setup
 This repository runs in a Docker container configured by [Sinergym](https://ugr-sail.github.io/sinergym/compilation/v3.1.0/index.html).
 
